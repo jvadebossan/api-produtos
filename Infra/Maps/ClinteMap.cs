@@ -12,9 +12,12 @@ namespace apiProdutos.Infra.Maps
     {
         public ClinteMap()
         {
-            Schema("APIPRODUTOS");
-            Table("");
-            Id(cliente => cliente.Id).Column("Id");
+            Schema("nhibernate");
+            Table("CLIENTE");
+            Id(cliente => cliente.Id).Column("ID");
+            Map(cliente => cliente.Nome).Column("NOME");
+            Map(cliente => cliente.Email).Column("EMAIL");
+            Map(cliente => cliente.Senha).Column("SENHA");
         }
     }
 }
