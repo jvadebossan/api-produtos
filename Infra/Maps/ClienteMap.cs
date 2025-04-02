@@ -8,9 +8,9 @@ using MySqlX.XDevAPI;
 
 namespace apiProdutos.Infra.Maps
 {
-    public class ClinteMap : ClassMap<Cliente>
+    public class ClienteMap : ClassMap<Cliente>
     {
-        public ClinteMap()
+        public ClienteMap()
         {
             Schema("nhibernate");
             Table("CLIENTE");

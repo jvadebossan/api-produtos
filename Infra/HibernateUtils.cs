@@ -21,7 +21,7 @@ namespace apiProdutos.Infra
                 .ShowSql()
                 .FormatSql())
                 .Mappings(
-                    m => { m.FluentMappings.AddFromAssemblyOf<ClinteMap>(); }
+                    m => { m.FluentMappings.AddFromAssemblyOf<ClienteMap>(); }
                 )
                 .BuildSessionFactory();
 
