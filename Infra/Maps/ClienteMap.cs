@@ -18,6 +18,7 @@ namespace apiProdutos.Infra.Maps
             Map(cliente => cliente.Nome).Column("NOME");
             Map(cliente => cliente.Email).Column("EMAIL");
             Map(cliente => cliente.Senha).Column("SENHA");
+            HasMany(cliente => cliente.Pedidos).KeyColumn("IDCLIENTE");
         }
     }
 }

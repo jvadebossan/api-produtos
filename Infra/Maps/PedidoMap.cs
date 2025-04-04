@@ -16,6 +16,11 @@ namespace apiProdutos.Infra.Maps
             Id(p => p.Id).Column("ID");
             Map(p => p.DataPedido).Column("DATAPEDIDO");
             References(p => p.Cliente).Column("IDCLIENTE");
+            HasManyToMany(p => p.Produtos)
+                .Table("ITEMPRODUTO")
+                .ParentKeyColumn("IDPEDIDO")
+                .ChildKeyColumn("IDPRODUTO")
+            .Cascade.All();
         }
     }
 }
