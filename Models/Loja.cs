@@ -15,6 +15,9 @@ namespace apiProdutos2.Models
         public virtual string ImagemUrl { get; set; }
         public virtual DateTime DataCadastro { get; set; }
 
-        public Loja() { }
+        public Loja()
+        {
+            DataCadastro = DateTime.Now;
+         }
     }
 }
