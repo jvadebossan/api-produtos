@@ -7,8 +7,17 @@ namespace apiProdutos2.Models
 {
     public class Produto
     {
-        public int Id { get; set; }
-        public string Nome { get; set; }
-        public float Preco { get; set; }
+        public virtual int Id { get; set; }
+        public virtual string Nome { get; set; }
+        public virtual string Descricao { get; set; }
+        public virtual string ImagemUrl { get; set; }
+        public virtual float Preco { get; set; }
+        public virtual bool Disponivel { get; set; }
+        public virtual Categoria Categoria { get; set; }
+
+        public Produto(Categoria categoria)
+        {
+            this.Categoria = categoria;
+        }
     }
 }
