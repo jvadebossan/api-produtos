@@ -8,7 +8,7 @@ var builder = WebApplication.CreateBuilder(args);
 builder.Services.AddControllers();
 builder.Services.AddEndpointsApiExplorer();
 builder.Services.AddSwaggerGen();
-builder.Services.AddAutoMapper(typeof(ProdutoProfile));
+builder.Services.AddAutoMapper(typeof(Profiles));
 builder.Services.AddScoped(provider => NhUtils.GetSession());
 
 var app = builder.Build();

@@ -12,14 +12,14 @@ namespace apiProdutos2.Infra.Maps
         public LojaMap()
         {
             Schema("MENU_ON");
-            Table("CATEGORIA");
+            Table("LOJA");
             Id(p => p.Id).Column("Id");
             Map(p => p.Nome).Column("Nome");
             Map(p => p.Endereco).Column("Endereco");
             Map(p => p.Telefone).Column("Telefone");
             Map(p => p.Email).Column("Email");
-            Map(p => p.ImagemUrl).Column("ImagemUrl");
-            Map(p => p.DataCadastro).Column("DataCadastro");
+            Map(p => p.ImagemUrl).Column("Imagem_url");
+            Map(p => p.DataCadastro).Column("Data_cadastro");
         }
     }
 }

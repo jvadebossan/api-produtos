@@ -8,12 +8,14 @@ using AutoMapper;
 
 namespace apiProdutos2.Profiles
 {
-    public class ProdutoProfile : Profile
+    public class Profiles : Profile
     {
-        public ProdutoProfile()
+        public Profiles()
         {
             CreateMap<ProdutoInserir, Produto>();
             CreateMap<LojaInserir, Loja>();
+            CreateMap<CategoriaInserir, Categoria>();
+            CreateMap<MenuInserir, Menu>();
         }
     }
 }
