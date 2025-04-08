@@ -8,19 +8,20 @@ using MySqlX.XDevAPI;
 
 namespace apiProdutos2.Infra.Maps
 {
-    public class ProdutoMap : ClassMap<Produto>
+    public class CategoriaMap : ClassMap<Categoria>
     {
-        public ProdutoMap()
+        public CategoriaMap()
         {
             Schema("MENU_ON");
-            Table("PRODUTO");
+            Table("CATEGORIA");
             Id(p => p.Id).Column("Id");
             Map(p => p.Nome).Column("Nome");
             Map(p => p.Descricao).Column("Descricao");
+            Map(p => p.OrdemExibicao).Column("Ordem_exibicao");
             Map(p => p.ImagemUrl).Column("Imagem_url");
-            Map(p => p.Preco).Column("Preco");
-            Map(p => p.Disponivel).Column("Disponivel");
-            References(p => p.Categoria).Column("Id_categoria").Not.Nullable();
+            Map(p => p.Ativo).Column("Ativo");
+            HasMany(p => p.Produtos).KeyColumn("Id_categoria").Inverse().Cascade.All();
+            References(p => p.Menu).Column("Id_menu").Not.Nullable();
         }
     }
 }

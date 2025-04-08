@@ -5,14 +5,16 @@ using System.Threading.Tasks;
 
 namespace apiProdutos2.Dtos
 {
-    public class ProdutoInserir
+    public class LojaInserir
     {
+        public int Id { get; set; }
         public string Nome { get; set; }
-        public string Descricao { get; set; }
+        public string Endereco { get; set; }
         public string ImagemUrl { get; set; }
-        public decimal Preco { get; set; }
+        public DateTime DataCadastro { get; set; }
 
         // Atributos opcionais
-        public bool? Disponivel { get; set; } = true;
+        public string? Telefone { get; set; }
+        public string? Email { get; set; }
     }
 }

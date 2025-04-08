@@ -5,23 +5,19 @@ using System.Threading.Tasks;
 
 namespace apiProdutos2.Models
 {
-    public class Categoria
+    public class Menu
     {
         public virtual int Id { get; set; }
         public virtual string Nome { get; set; }
         public virtual string Descricao { get; set; }
-        public virtual int OrdemExibicao { get; set; }
-        public virtual string ImagemUrl { get; set; }
         public virtual bool Ativo { get; set; }
-        public virtual IList<Produto> Produtos { get; set; }
-        public virtual Menu Menu { get; set; }
+        public virtual Loja Loja { get; set; }
 
-        public Categoria() { }
-
-        public Categoria(Menu menu)
+        public Menu() { }
+        
+        public Menu(Loja loja)
         {
-            Menu = menu;
+            Loja = loja;
         }
     }
-
 }

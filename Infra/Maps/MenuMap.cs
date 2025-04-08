@@ -4,23 +4,20 @@ using System.Linq;
 using System.Threading.Tasks;
 using apiProdutos2.Models;
 using FluentNHibernate.Mapping;
-using MySqlX.XDevAPI;
 
 namespace apiProdutos2.Infra.Maps
 {
-    public class ProdutoMap : ClassMap<Produto>
+    public class MenuMap : ClassMap<Menu>
     {
-        public ProdutoMap()
+        public MenuMap()
         {
             Schema("MENU_ON");
-            Table("PRODUTO");
+            Table("MENU");
             Id(p => p.Id).Column("Id");
             Map(p => p.Nome).Column("Nome");
             Map(p => p.Descricao).Column("Descricao");
-            Map(p => p.ImagemUrl).Column("Imagem_url");
-            Map(p => p.Preco).Column("Preco");
-            Map(p => p.Disponivel).Column("Disponivel");
-            References(p => p.Categoria).Column("Id_categoria").Not.Nullable();
+            Map(p => p.Ativo).Column("Ativo");
+            References(p => p.Loja).Column("Id_loja").Not.Nullable();
         }
     }
 }

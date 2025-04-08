@@ -5,14 +5,14 @@ using System.Threading.Tasks;
 
 namespace apiProdutos2.Dtos
 {
-    public class ProdutoInserir
+    public class MenuInserir
     {
+        public int Id { get; set; }
         public string Nome { get; set; }
         public string Descricao { get; set; }
-        public string ImagemUrl { get; set; }
-        public decimal Preco { get; set; }
+
 
         // Atributos opcionais
-        public bool? Disponivel { get; set; } = true;
+        public bool Ativo { get; set; }
     }
 }

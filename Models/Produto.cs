@@ -11,13 +11,15 @@ namespace apiProdutos2.Models
         public virtual string Nome { get; set; }
         public virtual string Descricao { get; set; }
         public virtual string ImagemUrl { get; set; }
-        public virtual float Preco { get; set; }
+        public virtual decimal Preco { get; set; }
         public virtual bool Disponivel { get; set; }
         public virtual Categoria Categoria { get; set; }
 
+        public Produto() { }
+        
         public Produto(Categoria categoria)
         {
-            this.Categoria = categoria;
+            Categoria = categoria;
         }
     }
 }
