@@ -29,8 +29,10 @@ namespace apiProdutos2.Controllers
         public IActionResult CriaLoja([FromForm] LojaInserir lojaDto)
         {
             var loja = _mapper.Map<Loja>(lojaDto);
+
             _session.Save(loja);
-            Console.WriteLine($"➕ Loja adicionado: {loja.Nome}");
+            Console.WriteLine($"➕ Loja adicionada: {loja.Nome}");
+
             return CreatedAtAction(nameof(LojaPorId), new { id = loja.Id }, loja);
 
         }
@@ -70,6 +72,7 @@ namespace apiProdutos2.Controllers
             using var transaction = _session.BeginTransaction();
             _session.Update(loja);
             transaction.Commit();
+            Console.WriteLine($"🔃 Loja Atualizada: {loja.Nome}");
 
             return NoContent();
         }
@@ -81,10 +84,11 @@ namespace apiProdutos2.Controllers
 
             if (loja == null)
                 return NotFound(new { mensagem = $"Loja com ID {id} não encontrada." });
-            
+
             using var transaction = _session.BeginTransaction();
             _session.Delete(loja);
             transaction.Commit();
+            Console.WriteLine($"❌ Loja deletada: {loja.Nome}");
 
             return NoContent();
         }
