@@ -13,6 +13,7 @@ namespace apiProdutos2.Profiles
         public ProdutoProfile()
         {
             CreateMap<ProdutoInserir, Produto>();
+            CreateMap<LojaInserir, Loja>();
         }
     }
 }
