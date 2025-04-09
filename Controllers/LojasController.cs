@@ -1,6 +1,6 @@
 
-using System.Text.Json;
 using apiProdutos2.Dtos;
+using apiProdutos2.Infra;
 using apiProdutos2.Models;
 using AutoMapper;
 using Microsoft.AspNetCore.Mvc;
@@ -26,8 +26,8 @@ namespace apiProdutos2.Controllers
             var loja = _mapper.Map<Loja>(lojaDto);
 
             _session.Save(loja);
-            Console.WriteLine($"🆙 Loja adicionada: {loja.Nome}");
 
+            Console.WriteLine(LogUtils.MsgInsert("Loja", loja));
             return CreatedAtAction(nameof(LojaPorId), new { id = loja.Id }, loja);
         }
 
@@ -39,7 +39,7 @@ namespace apiProdutos2.Controllers
             var total = lojas.Count();
             var lojasPaginadas = lojas.Skip((pagina - 1) * quantidade).Take(quantidade).ToList();
 
-            Console.WriteLine($"✅ Loja encontrada [ID]: \n{JsonSerializer.Serialize(lojas)}");
+            Console.WriteLine(LogUtils.MsgGet("Loja", lojas));
             return Ok(new
             {
                 total,
@@ -51,9 +51,9 @@ namespace apiProdutos2.Controllers
         public IActionResult LojaPorId(int id)
         {
             var loja = _session.Get<Loja>(id);
-            if (loja == null) return NotFound(new { mensagem = $"Loja com ID {id} não encontrada." });
+            if (loja == null) return NotFound(LogUtils.MsgErro("Loja", id));
 
-            Console.WriteLine($"✅ Loja encontrada [ID]: \n{JsonSerializer.Serialize(loja)}");
+            Console.WriteLine(LogUtils.MsgGet("Loja", loja));
             return Ok(loja);
         }
 
@@ -63,14 +63,14 @@ namespace apiProdutos2.Controllers
             var loja = _session.Get<Loja>(id);
 
             if (loja == null)
-                return NotFound(new { mensagem = $"Loja com ID {id} não encontrada." });
+                return NotFound(LogUtils.MsgErro("Loja", id));
 
             _mapper.Map(lojaDto, loja);
 
             using var transaction = _session.BeginTransaction();
             _session.Update(loja);
             transaction.Commit();
-            Console.WriteLine($"🔄️ Loja atualizada: {loja.Nome}");
+            Console.WriteLine(LogUtils.MsgUpdate("Loja", loja));
 
             return NoContent();
         }
@@ -81,12 +81,12 @@ namespace apiProdutos2.Controllers
             var loja = _session.Get<Loja>(id);
 
             if (loja == null)
-                return NotFound(new { mensagem = $"Loja com ID {id} não encontrada." });
+                return NotFound(LogUtils.MsgErro("Loja", id));
 
             using var transaction = _session.BeginTransaction();
             _session.Delete(loja);
             transaction.Commit();
-            Console.WriteLine($"❌ Loja deletada: {loja.Nome}");
+            Console.WriteLine(LogUtils.MsgDelete("Loja", loja));
 
             return NoContent();
         }
