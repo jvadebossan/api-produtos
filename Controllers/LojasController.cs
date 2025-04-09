@@ -1,4 +1,5 @@
 
+using System.Text.Json;
 using apiProdutos2.Dtos;
 using apiProdutos2.Models;
 using AutoMapper;
@@ -20,15 +21,14 @@ namespace apiProdutos2.Controllers
         }
 
         [HttpPost]
-        public IActionResult CriaLoja([FromForm] LojaInserir lojaDto)
+        public IActionResult CriaLoja([FromBody] LojaInserir lojaDto)
         {
             var loja = _mapper.Map<Loja>(lojaDto);
 
             _session.Save(loja);
-            Console.WriteLine($"➕ Loja adicionada: {loja.Nome}");
+            Console.WriteLine($"🆙 Loja adicionada: {loja.Nome}");
 
             return CreatedAtAction(nameof(LojaPorId), new { id = loja.Id }, loja);
-
         }
 
         [HttpGet()]
@@ -36,11 +36,14 @@ namespace apiProdutos2.Controllers
         {
             //paginacâo simples
             var lojas = _session.Query<Loja>();
+            var total = lojas.Count();
+            var lojasPaginadas = lojas.Skip((pagina - 1) * quantidade).Take(quantidade).ToList();
 
+            Console.WriteLine($"✅ Loja encontrada [ID]: \n{JsonSerializer.Serialize(lojas)}");
             return Ok(new
             {
-                total = lojas.Count(),
-                lojas = lojas.Skip((pagina - 1) * quantidade).Take(quantidade)
+                total,
+                lojas = lojasPaginadas
             });
         }
 
@@ -50,11 +53,12 @@ namespace apiProdutos2.Controllers
             var loja = _session.Get<Loja>(id);
             if (loja == null) return NotFound(new { mensagem = $"Loja com ID {id} não encontrada." });
 
+            Console.WriteLine($"✅ Loja encontrada [ID]: \n{JsonSerializer.Serialize(loja)}");
             return Ok(loja);
         }
 
         [HttpPut("{id}")]
-        public IActionResult AtualizarLoja(int id, [FromForm] LojaAtualizar lojaDto)
+        public IActionResult AtualizarLoja(int id, [FromBody] LojaAtualizar lojaDto)
         {
             var loja = _session.Get<Loja>(id);
 
@@ -66,13 +70,13 @@ namespace apiProdutos2.Controllers
             using var transaction = _session.BeginTransaction();
             _session.Update(loja);
             transaction.Commit();
-            Console.WriteLine($"🔃 Loja Atualizada: {loja.Nome}");
+            Console.WriteLine($"🔄️ Loja atualizada: {loja.Nome}");
 
             return NoContent();
         }
 
         [HttpDelete("{id}")]
-        public IActionResult DeletarLojar(int id)
+        public IActionResult DeletarLoja(int id)
         {
             var loja = _session.Get<Loja>(id);
 
