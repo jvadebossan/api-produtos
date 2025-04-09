@@ -1,7 +1,3 @@
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Threading.Tasks;
 
 namespace apiProdutos2.Models
 {
@@ -18,6 +14,6 @@ namespace apiProdutos2.Models
         public Loja()
         {
             DataCadastro = DateTime.Now;
-         }
+        }
     }
 }

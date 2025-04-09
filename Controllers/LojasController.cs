@@ -1,14 +1,8 @@
-using System;
-using System.Collections.Generic;
-using System.Diagnostics;
-using System.Linq;
-using System.Text.Json;
-using System.Threading.Tasks;
+
 using apiProdutos2.Dtos;
 using apiProdutos2.Models;
 using AutoMapper;
 using Microsoft.AspNetCore.Mvc;
-using NHibernate;
 
 namespace apiProdutos2.Controllers
 {
@@ -54,13 +48,13 @@ namespace apiProdutos2.Controllers
         public IActionResult LojaPorId(int id)
         {
             var loja = _session.Get<Loja>(id);
-            if (loja == null) return NotFound();
+            if (loja == null) return NotFound(new { mensagem = $"Loja com ID {id} não encontrada." });
 
             return Ok(loja);
         }
 
-        [HttpPut()]
-        public IActionResult EditarLoja(int id, [FromForm] LojaInserir lojaDto)
+        [HttpPut("{id}")]
+        public IActionResult AtualizarLoja(int id, [FromForm] LojaAtualizar lojaDto)
         {
             var loja = _session.Get<Loja>(id);
 
@@ -77,7 +71,7 @@ namespace apiProdutos2.Controllers
             return NoContent();
         }
 
-        [HttpDelete()]
+        [HttpDelete("{id}")]
         public IActionResult DeletarLojar(int id)
         {
             var loja = _session.Get<Loja>(id);

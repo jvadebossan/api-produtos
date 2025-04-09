@@ -1,7 +1,3 @@
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Threading.Tasks;
 
 namespace apiProdutos2.Models
 {
@@ -14,7 +10,7 @@ namespace apiProdutos2.Models
         public virtual Loja Loja { get; set; }
 
         public Menu() { }
-        
+
         public Menu(Loja loja)
         {
             Loja = loja;

@@ -24,4 +24,15 @@ namespace apiProdutos2.Dtos
         [StringLength(100, ErrorMessage = "O e-mail deve ter no máximo 100 caracteres")]
         public string? Email { get; set; }
     }
+
+    public class LojaAtualizar
+    {
+        // Atributos opcionais
+        public string Nome { get; set; }
+        public string Endereco { get; set; }
+        public string ImagemUrl { get; set; }
+        public string? Telefone { get; set; }
+        public string? Email { get; set; }
+    }
+
 }

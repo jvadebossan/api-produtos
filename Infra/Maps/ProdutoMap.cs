@@ -1,10 +1,5 @@
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Threading.Tasks;
 using apiProdutos2.Models;
 using FluentNHibernate.Mapping;
-using MySqlX.XDevAPI;
 
 namespace apiProdutos2.Infra.Maps
 {

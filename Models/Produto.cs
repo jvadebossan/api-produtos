@@ -1,7 +1,3 @@
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Threading.Tasks;
 
 namespace apiProdutos2.Models
 {
@@ -16,7 +12,7 @@ namespace apiProdutos2.Models
         public virtual Categoria Categoria { get; set; }
 
         public Produto() { }
-        
+
         public Produto(Categoria categoria)
         {
             Categoria = categoria;

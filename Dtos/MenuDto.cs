@@ -12,6 +12,10 @@ namespace apiProdutos2.Dtos
         [StringLength(300, MinimumLength = 5, ErrorMessage = "A descrição deve ter entre 5 e 300 caracteres")]
         public string Descricao { get; set; }
 
+        [Required(ErrorMessage = "O id da loja é obrigatório")]
+        [Range(1, int.MaxValue, ErrorMessage = "O valor deve ser maior que zero.")]
+        public int LojaId { get; set; }
+
         // Atributo opcional
         public bool? Ativo { get; set; } = true;
     }
