@@ -1,7 +1,3 @@
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Threading.Tasks;
 using apiProdutos2.Infra.Maps;
 using FluentNHibernate.Cfg;
 using FluentNHibernate.Cfg.Db;
@@ -17,7 +13,7 @@ namespace apiProdutos2.Infra
         {
             sessionFactory = Fluently.Configure().Database(
                 MySQLConfiguration.Standard.ConnectionString("Server=localhost;Port=3306;Database=menu_on;Uid=root;Pwd=")
-                .ShowSql()
+                //.ShowSql()
                 .FormatSql())
                 .Mappings(
                     m => { m.FluentMappings.AddFromAssemblyOf<ProdutoMap>(); }

@@ -19,4 +19,14 @@ namespace apiProdutos2.Dtos
         // Atributo opcional
         public bool? Ativo { get; set; } = true;
     }
+
+    public class MenuAtualizar
+    {
+        // Atributo opcional
+        public string Nome { get; set; }
+        public string Descricao { get; set; }
+        public int LojaId { get; set; }
+        public bool? Ativo { get; set; } = true;
+    }
+
 }

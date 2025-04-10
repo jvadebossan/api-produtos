@@ -70,8 +70,8 @@ namespace apiProdutos2.Controllers
             using var transaction = _session.BeginTransaction();
             _session.Update(loja);
             transaction.Commit();
-            Console.WriteLine(LogUtils.MsgUpdate("Loja", loja));
 
+            Console.WriteLine(LogUtils.MsgUpdate("Loja", loja));
             return NoContent();
         }
 
@@ -86,8 +86,8 @@ namespace apiProdutos2.Controllers
             using var transaction = _session.BeginTransaction();
             _session.Delete(loja);
             transaction.Commit();
-            Console.WriteLine(LogUtils.MsgDelete("Loja", loja));
 
+            Console.WriteLine(LogUtils.MsgDelete("Loja", loja));
             return NoContent();
         }
     }
