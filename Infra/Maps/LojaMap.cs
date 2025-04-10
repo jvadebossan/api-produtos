@@ -16,6 +16,11 @@ namespace apiProdutos2.Infra.Maps
             Map(p => p.Email).Column("Email");
             Map(p => p.ImagemUrl).Column("Imagem_url");
             Map(p => p.DataCadastro).Column("Data_cadastro");
+            HasOne(x => x.Menu)
+            .PropertyRef(m => m.Loja) // referência à propriedade Loja dentro de Menu
+            .Cascade.All()
+            .LazyLoad(); // opcional: remova se quiser eager loading
+            //HasMany(p => p.Menus).KeyColumn("Id_loja").Inverse().Cascade.All();
         }
     }
 }
