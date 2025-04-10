@@ -23,9 +23,9 @@ namespace apiProdutos2.Dtos
     public class MenuAtualizar
     {
         // Atributo opcional
-        public string Nome { get; set; }
-        public string Descricao { get; set; }
-        public int LojaId { get; set; }
+        public string? Nome { get; set; }
+        public string? Descricao { get; set; }
+        public int? LojaId { get; set; }
         public bool? Ativo { get; set; } = true;
     }
 

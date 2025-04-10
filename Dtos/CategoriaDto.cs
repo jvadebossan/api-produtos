@@ -22,4 +22,15 @@ namespace apiProdutos2.Dtos
 
         public bool? Ativo { get; set; } = true;
     }
+
+    public class CategoriaAtualizar
+    {
+        // Atributos opcionais
+        public string? Nome { get; set; }
+        public string? Descricao { get; set; }
+        public int? OrdemExibicao { get; set; }
+        public string? ImagemUrl { get; set; }
+        public bool? Ativo { get; set; } = true;
+    }
+
 }
