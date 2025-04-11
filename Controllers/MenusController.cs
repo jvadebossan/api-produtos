@@ -25,13 +25,13 @@ namespace apiProdutos2.Controllers
             var menu = _mapper.Map<Menu>(menuDto);
 
             var loja = _session.Get<Loja>(menuDto.LojaId);
-            if (loja == null) return NotFound(LogUtils.MsgErro("Loja", menuDto.LojaId));
+            if (loja == null) return NotFound(LogUtils.MsgErro(menuDto.LojaId, "Loja"));
 
             menu.Loja = loja;
 
             _session.Save(menu);
-            Console.WriteLine(LogUtils.MsgInsert("Menu", menu));
 
+            Console.WriteLine(LogUtils.MsgInsert(menu));
             return CreatedAtAction(nameof(MenuPorId), new { id = menu.Id }, menu);
         }
 
@@ -39,8 +39,9 @@ namespace apiProdutos2.Controllers
         public IActionResult MenuPorId(int id)
         {
             Menu menu = _session.Get<Menu>(id);
-            if (menu == null) return NotFound(LogUtils.MsgErro("Menu", id));
+            if (menu == null) return NotFound(LogUtils.MsgErro(id));
 
+            Console.WriteLine(LogUtils.MsgGet(menu));
             return Ok(menu);
         }
 
@@ -48,7 +49,7 @@ namespace apiProdutos2.Controllers
         public IActionResult AtualizarMenu(int id, [FromBody] MenuAtualizar menuDto)
         {
             var menu = _session.Get<Menu>(id);
-            if (menu == null) return NotFound(LogUtils.MsgErro("Menu", id));
+            if (menu == null) return NotFound(LogUtils.MsgErro(id));
 
             menu = _mapper.Map(menuDto, menu);
 
@@ -56,7 +57,7 @@ namespace apiProdutos2.Controllers
             _session.Save(menu);
             transaction.Commit();
 
-            Console.WriteLine(LogUtils.MsgUpdate("Menu", menu));
+            Console.WriteLine(LogUtils.MsgUpdate(menu));
             return Ok(menu);
         }
 
@@ -65,13 +66,13 @@ namespace apiProdutos2.Controllers
         {
             var menu = _session.Get<Menu>(id);
 
-            if (menu == null) return NotFound(LogUtils.MsgErro("Menu", id));
+            if (menu == null) return NotFound(LogUtils.MsgErro(id));
 
             using var transaction = _session.BeginTransaction();
             _session.Delete(menu);
             transaction.Commit();
 
-            Console.WriteLine(LogUtils.MsgDelete("Menu", menu));
+            Console.WriteLine(LogUtils.MsgDelete(menu));
             return NoContent();
         }
     }

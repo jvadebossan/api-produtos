@@ -25,14 +25,14 @@ namespace apiProdutos2.Controllers
         public IActionResult CriarCategoria([FromBody] CategoriaInserir categoriaDto)
         {
             var menu = _session.Get<Menu>(categoriaDto.MenuId);
-            if (menu == null) return NotFound(LogUtils.MsgErro("Menu", categoriaDto.MenuId));
+            if (menu == null) return NotFound(LogUtils.MsgErro(categoriaDto.MenuId, "Menu"));
 
             var categoria = _mapper.Map<Categoria>(categoriaDto);
             categoria.Menu = menu;
 
             _session.Save(categoria);
 
-            Console.WriteLine(LogUtils.MsgInsert("Categoria", categoria));
+            Console.WriteLine(LogUtils.MsgInsert(categoria));
             return CreatedAtAction(nameof(CategoriaPorId), new { categoria.Id }, categoria);
         }
 
@@ -41,9 +41,9 @@ namespace apiProdutos2.Controllers
         {
             var categoria = _session.Get<Categoria>(id);
 
-            if (categoria == null) return NotFound(LogUtils.MsgErro("Categoria", id));
+            if (categoria == null) return NotFound(LogUtils.MsgErro(id));
 
-            Console.WriteLine(LogUtils.MsgGet("Categoria", categoria));
+            Console.WriteLine(LogUtils.MsgGet(categoria));
             return Ok(categoria);
         }
 
@@ -52,9 +52,9 @@ namespace apiProdutos2.Controllers
         {
             var categorias = _session.Query<Categoria>().Where(c => c.Menu.Id == menuId).ToList();
 
-            if (!categorias.Any()) return NotFound(LogUtils.MsgErro("Categoria", menuId));
+            if (!categorias.Any()) return NotFound(LogUtils.MsgErro(menuId));
 
-            Console.WriteLine(LogUtils.MsgGet("Categoria", categorias));
+            Console.WriteLine(LogUtils.MsgGet(categorias));
             return Ok(categorias);
         }
 
@@ -62,7 +62,7 @@ namespace apiProdutos2.Controllers
         public IActionResult AtualizarCategoria(int id, CategoriaAtualizar categoriaDto)
         {
             var categoria = _session.Get<Categoria>(id);
-            if (categoria == null) return NotFound(LogUtils.MsgErro("Categoria", id));
+            if (categoria == null) return NotFound(LogUtils.MsgErro(id));
 
             _mapper.Map(categoriaDto, categoria);
 
@@ -70,7 +70,7 @@ namespace apiProdutos2.Controllers
             _session.Update(categoria);
             transaction.Commit();
 
-            Console.WriteLine(LogUtils.MsgUpdate("Categoria", categoria));
+            Console.WriteLine(LogUtils.MsgUpdate(categoria));
             return NoContent();
         }
 
@@ -78,13 +78,13 @@ namespace apiProdutos2.Controllers
         public IActionResult DeletarCategoria(int id)
         {
             var categoria = _session.Get<Categoria>(id);
-            if (categoria == null) return NotFound(LogUtils.MsgErro("Categoria", id));
+            if (categoria == null) return NotFound(LogUtils.MsgErro(id));
 
             using var transaction = _session.BeginTransaction();
             _session.Delete(categoria);
             transaction.Commit();
 
-            Console.WriteLine(LogUtils.MsgDelete("Categoria", categoria));
+            Console.WriteLine(LogUtils.MsgDelete(categoria));
             return NoContent();
         }
     }

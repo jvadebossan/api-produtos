@@ -26,7 +26,7 @@ namespace apiProdutos2.Controllers
 
             _session.Save(loja);
 
-            Console.WriteLine(LogUtils.MsgInsert("Loja", loja));
+            Console.WriteLine(LogUtils.MsgInsert(loja));
             return CreatedAtAction(nameof(LojaPorId), new { id = loja.Id }, loja);
         }
 
@@ -38,7 +38,7 @@ namespace apiProdutos2.Controllers
             var total = lojas.Count();
             var lojasPaginadas = lojas.Skip((pagina - 1) * quantidade).Take(quantidade).ToList();
 
-            Console.WriteLine(LogUtils.MsgGet("Loja", lojas));
+            Console.WriteLine(LogUtils.MsgGet(lojas));
             return Ok(new
             {
                 total,
@@ -50,9 +50,9 @@ namespace apiProdutos2.Controllers
         public IActionResult LojaPorId(int id)
         {
             var loja = _session.Get<Loja>(id);
-            if (loja == null) return NotFound(LogUtils.MsgErro("Loja", id));
+            if (loja == null) return NotFound(LogUtils.MsgErro(id));
 
-            Console.WriteLine(LogUtils.MsgGet("Loja", loja));
+            Console.WriteLine(LogUtils.MsgGet(loja));
             return Ok(loja);
         }
 
@@ -62,7 +62,7 @@ namespace apiProdutos2.Controllers
             var loja = _session.Get<Loja>(id);
 
             if (loja == null)
-                return NotFound(LogUtils.MsgErro("Loja", id));
+                return NotFound(LogUtils.MsgErro(id));
 
             _mapper.Map(lojaDto, loja);
 
@@ -70,7 +70,7 @@ namespace apiProdutos2.Controllers
             _session.Update(loja);
             transaction.Commit();
 
-            Console.WriteLine(LogUtils.MsgUpdate("Loja", loja));
+            Console.WriteLine(LogUtils.MsgUpdate(loja));
             return NoContent();
         }
 
@@ -80,13 +80,13 @@ namespace apiProdutos2.Controllers
             var loja = _session.Get<Loja>(id);
 
             if (loja == null)
-                return NotFound(LogUtils.MsgErro("Loja", id));
+                return NotFound(LogUtils.MsgErro(id));
 
             using var transaction = _session.BeginTransaction();
             _session.Delete(loja);
             transaction.Commit();
 
-            Console.WriteLine(LogUtils.MsgDelete("Loja", loja));
+            Console.WriteLine(LogUtils.MsgDelete(loja));
             return NoContent();
         }
     }
