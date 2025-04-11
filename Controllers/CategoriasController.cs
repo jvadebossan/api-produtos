@@ -47,17 +47,6 @@ namespace apiProdutos2.Controllers
             return Ok(categoria);
         }
 
-        [HttpGet]
-        public IActionResult CategoriaPorMenuId([FromQuery] int menuId)
-        {
-            var categorias = _session.Query<Categoria>().Where(c => c.Menu.Id == menuId).ToList();
-
-            if (!categorias.Any()) return NotFound(LogUtils.MsgErro(menuId));
-
-            Console.WriteLine(LogUtils.MsgGet(categorias));
-            return Ok(categorias);
-        }
-
         [HttpPut("{id}")]
         public IActionResult AtualizarCategoria(int id, CategoriaAtualizar categoriaDto)
         {

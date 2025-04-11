@@ -14,6 +14,7 @@ namespace apiProdutos2.Infra.Maps
             Map(p => p.Descricao).Column("Descricao");
             Map(p => p.Ativo).Column("Ativo");
             References(p => p.Loja).Column("Id_loja").Not.Nullable();
+            HasMany(p => p.Categorias).KeyColumn("Id_menu").Inverse().Cascade.All();
         }
     }
 }

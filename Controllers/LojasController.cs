@@ -52,6 +52,18 @@ namespace apiProdutos2.Controllers
             var loja = _session.Get<Loja>(id);
             if (loja == null) return NotFound(LogUtils.MsgErro(id));
 
+            var lojaDto = _mapper.Map<LojaDto>(loja);
+
+            Console.WriteLine(LogUtils.MsgGet(lojaDto));
+            return Ok(lojaDto);
+        }
+
+        [HttpGet("{id}/cardapio")]
+        public IActionResult LojaComCardapio(int id)
+        {
+            var loja = _session.Get<Loja>(id);
+            if (loja == null) return NotFound(LogUtils.MsgErro(id));
+
             Console.WriteLine(LogUtils.MsgGet(loja));
             return Ok(loja);
         }

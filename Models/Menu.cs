@@ -11,6 +11,7 @@ namespace apiProdutos2.Models
         public virtual bool Ativo { get; set; }
         [JsonIgnore]
         public virtual Loja Loja { get; set; }
+        public virtual IList<Categoria> Categorias { get; set; }
 
         public Menu() { }
 
