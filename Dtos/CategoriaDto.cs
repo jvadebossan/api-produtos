@@ -12,6 +12,10 @@ namespace apiProdutos2.Dtos
         [StringLength(300, MinimumLength = 5, ErrorMessage = "A descrição deve ter entre 5 e 300 caracteres")]
         public string Descricao { get; set; }
 
+        [Required(ErrorMessage = "O MenuId é obrigatório")]
+        [Range(0, int.MaxValue, ErrorMessage = "O MenuId deve ser um número positivo.")]
+        public int MenuId { get; set; }
+
         // Atributos opcionais
         [Range(0, 999, ErrorMessage = "A ordem de exibição deve estar entre 0 e 999")]
         public int? OrdemExibicao { get; set; }
@@ -28,6 +32,7 @@ namespace apiProdutos2.Dtos
         // Atributos opcionais
         public string? Nome { get; set; }
         public string? Descricao { get; set; }
+        public int? MenuId { get; set; }
         public int? OrdemExibicao { get; set; }
         public string? ImagemUrl { get; set; }
         public bool? Ativo { get; set; } = true;

@@ -19,7 +19,6 @@ namespace apiProdutos2.Profiles
             CreateMap<MenuAtualizar, Menu>();
             CreateMap<CategoriaInserir, Categoria>();
             CreateMap<CategoriaAtualizar, Categoria>();
-            CreateMap<CategoriaInserir, Categoria>();
         }
     }
 }

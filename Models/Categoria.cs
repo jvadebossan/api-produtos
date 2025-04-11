@@ -1,4 +1,6 @@
 
+using System.Text.Json.Serialization;
+
 namespace apiProdutos2.Models
 {
     public class Categoria
@@ -10,6 +12,7 @@ namespace apiProdutos2.Models
         public virtual string ImagemUrl { get; set; }
         public virtual bool Ativo { get; set; }
         public virtual IList<Produto> Produtos { get; set; }
+        [JsonIgnore]
         public virtual Menu Menu { get; set; }
 
         public Categoria() { }
