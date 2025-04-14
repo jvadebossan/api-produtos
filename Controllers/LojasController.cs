@@ -37,12 +37,14 @@ namespace apiProdutos2.Controllers
             var lojas = _session.Query<Loja>();
             var total = lojas.Count();
             var lojasPaginadas = lojas.Skip((pagina - 1) * quantidade).Take(quantidade).ToList();
+            
+            var lojasDto = _mapper.Map<List<LojaDto>>(lojasPaginadas);
 
             Console.WriteLine(LogUtils.MsgGet(lojas));
             return Ok(new
             {
                 total,
-                lojas = lojasPaginadas
+                lojas = lojasDto
             });
         }
 
