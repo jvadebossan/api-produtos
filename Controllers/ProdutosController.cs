@@ -1,8 +1,5 @@
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Threading.Tasks;
 using apiProdutos2.Dtos;
+using apiProdutos2.Infra;
 using apiProdutos2.Models;
 using AutoMapper;
 using Microsoft.AspNetCore.Mvc;
@@ -11,7 +8,7 @@ namespace apiProdutos2.Controllers
 {
     [ApiController]
     [Route("api/[controller]")]
-    public class ProdutosController : ControllerBase
+    public class ProdutosController : Controller
     {
 
         private readonly NHibernate.ISession _session;
@@ -23,19 +20,60 @@ namespace apiProdutos2.Controllers
             _mapper = mapper;
         }
 
-
-        [HttpGet]
-        public void Status()
-        {
-            Console.WriteLine("running");
-        }
-
         [HttpPost]
-        public void InserirProduto(ProdutoInserir produtoDto)
+        public IActionResult InserirProduto(ProdutoInserir produtoDto)
         {
             var produto = _mapper.Map<Produto>(produtoDto);
+
+            var categoria = _session.Get<Categoria>(produtoDto.CategoriaId);
+            if (categoria == null) return NotFound(LogUtils.MsgErro(produtoDto.CategoriaId, "Categoria"));
+
+            produto.Categoria = categoria;
+
             _session.Save(produto);
-            Console.WriteLine($"➕ Produto adicionado: {produto.Nome}");
+
+            Console.WriteLine(LogUtils.MsgInsert(produto));
+            return CreatedAtAction(nameof(ProdutoPorId), new { id = produto.Id }, produto);
+        }
+
+        [HttpGet("{id}")]
+        public IActionResult ProdutoPorId(int id)
+        {
+            var produto = _session.Get<Produto>(id);
+            if (produto == null) return NotFound(LogUtils.MsgErro(id));
+
+            Console.WriteLine(LogUtils.MsgGet(produto));
+            return Ok(produto);
+        }
+
+        [HttpPut("{id}")]
+        public IActionResult AtualizarProduto(int id, [FromBody] ProdutoAtualizar produtoDto)
+        {
+            var produto = _session.Get<Produto>(id);
+            if (produto == null) return NotFound(LogUtils.MsgErro(id));
+
+            _mapper.Map(produtoDto, produto);
+
+            using var transaction = _session.BeginTransaction();
+            _session.Update(produto);
+            transaction.Commit();
+
+            Console.WriteLine(LogUtils.MsgUpdate(produto));
+            return NoContent();
+        }
+
+        [HttpDelete("{id}")]
+        public IActionResult DeletarProduto(int id)
+        {
+            var produto = _session.Get<Produto>(id);
+            if (produto == null) return NotFound(LogUtils.MsgErro(id));
+
+            using var transaction = _session.BeginTransaction();
+            _session.Delete(produto);
+            transaction.Commit();
+
+            Console.WriteLine(LogUtils.MsgDelete(produto));
+            return NoContent();
         }
     }
 }

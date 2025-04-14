@@ -1,4 +1,6 @@
 
+using System.Text.Json.Serialization;
+
 namespace apiProdutos2.Models
 {
     public class Produto
@@ -9,6 +11,7 @@ namespace apiProdutos2.Models
         public virtual string ImagemUrl { get; set; }
         public virtual decimal Preco { get; set; }
         public virtual bool Disponivel { get; set; }
+        [JsonIgnore]
         public virtual Categoria Categoria { get; set; }
 
         public Produto() { }

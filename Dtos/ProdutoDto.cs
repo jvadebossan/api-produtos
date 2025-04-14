@@ -20,6 +20,23 @@ namespace apiProdutos2.Dtos
         [Range(0.01, 999999.99, ErrorMessage = "O preço deve ser maior que zero")]
         public decimal Preco { get; set; }
 
+
+        [Required(ErrorMessage = "O id da categoria é obrigatório")]
+        [Range(1, int.MaxValue, ErrorMessage = "O valor deve ser maior que zero.")]
+        public int CategoriaId { get; set; }
+
         public bool? Disponivel { get; set; } = true;
     }
+
+    public class ProdutoAtualizar
+    {
+        // Atributos opcionais
+        public string? Nome { get; set; }
+        public string? Descricao { get; set; }
+        public string? ImagemUrl { get; set; }
+        public decimal? Preco { get; set; }
+        public int? CategoriaId { get; set; }
+        public bool? Disponivel { get; set; } = true;
+    }
+
 }
