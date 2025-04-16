@@ -2,6 +2,7 @@ using apiProdutos2.Infra.Maps;
 using FluentNHibernate.Cfg;
 using FluentNHibernate.Cfg.Db;
 using NHibernate;
+using DotNetEnv;
 
 namespace apiProdutos2.Infra
 {
@@ -12,7 +13,7 @@ namespace apiProdutos2.Infra
         public static NHibernate.ISession GetSession()
         {
             sessionFactory = Fluently.Configure().Database(
-                MySQLConfiguration.Standard.ConnectionString("Server=localhost;Port=3306;Database=menu_on;Uid=root;Pwd=")
+                MySQLConfiguration.Standard.ConnectionString(Environment.GetEnvironmentVariable("DATABASE_URL"))
                 //.ShowSql()
                 .FormatSql())
                 .Mappings(

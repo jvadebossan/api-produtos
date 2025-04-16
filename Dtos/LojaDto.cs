@@ -1,14 +1,17 @@
 using System.ComponentModel.DataAnnotations;
+using apiProdutos2.Models;
 
 namespace apiProdutos2.Dtos
 {
     class LojaDto
     {
-        public string? Nome { get; set; }
-        public string? Endereco { get; set; }
-        public string? ImagemUrl { get; set; }
-        public string? Telefone { get; set; }
-        public string? Email { get; set; }
+        public string Nome { get; set; }
+        public string Endereco { get; set; }
+        public string ImagemUrl { get; set; }
+        public List<Usuario> Usuarios { get; set; } = [];
+        public string Telefone { get; set; }
+        public string Email { get; set; }
+
     }
     public class LojaInserir
     {
@@ -23,6 +26,9 @@ namespace apiProdutos2.Dtos
         [Required(ErrorMessage = "A URL da imagem deve ser informada")]
         [Url(ErrorMessage = "A URL da imagem é inválida")]
         public string ImagemUrl { get; set; }
+
+        [Required(ErrorMessage = "Pelo menos um usuário dono deve ser informado")]
+        public List<int> UsuariosIds { get; set; } = [];
 
         [Phone(ErrorMessage = "O telefone informado é inválido")]
         [StringLength(20, ErrorMessage = "O telefone deve ter no máximo 20 caracteres")]
@@ -39,6 +45,7 @@ namespace apiProdutos2.Dtos
         public string? Nome { get; set; }
         public string? Endereco { get; set; }
         public string? ImagemUrl { get; set; }
+        public List<int>? UsuariosIds { get; set; } = [];
         public string? Telefone { get; set; }
         public string? Email { get; set; }
     }

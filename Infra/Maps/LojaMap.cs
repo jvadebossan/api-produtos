@@ -20,7 +20,12 @@ namespace apiProdutos2.Infra.Maps
             .PropertyRef(m => m.Loja) // referência à propriedade Loja dentro de Menu
             .Cascade.All()
             .LazyLoad(); // opcional: remova se quiser eager loading
-            //HasMany(p => p.Menus).KeyColumn("Id_loja").Inverse().Cascade.All();
+            HasManyToMany(x => x.Usuarios)
+            .Table("USUARIO_LOJA")
+            .ParentKeyColumn("ID_LOJA")
+            .ChildKeyColumn("ID_USUARIO")
+            .Cascade.All()
+            .Inverse();
         }
     }
 }

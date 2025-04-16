@@ -3,6 +3,7 @@ using apiProdutos2.Infra;
 using apiProdutos2.Models;
 using AutoMapper;
 using Microsoft.AspNetCore.Mvc;
+using NHibernate.Linq;
 
 namespace apiProdutos2.Controllers
 {
@@ -22,9 +23,23 @@ namespace apiProdutos2.Controllers
         [HttpPost]
         public IActionResult CriaLoja([FromBody] LojaInserir lojaDto)
         {
-            var loja = _mapper.Map<Loja>(lojaDto);
 
-            _session.Save(loja);
+            var loja = _mapper.Map<Loja>(lojaDto);
+            loja.Usuarios = _session.Query<Usuario>()
+                .Where(u => lojaDto.UsuariosIds.Contains(u.Id))
+                .ToList();
+
+            using var transaction = _session.BeginTransaction();
+
+            foreach (var usuario in loja.Usuarios)
+            {
+                if (!usuario.Lojas.Contains(loja))
+                    usuario.Lojas.Add(loja);
+                _session.SaveOrUpdate(usuario);
+            }
+
+            _session.SaveOrUpdate(loja);
+            transaction.Commit();
 
             Console.WriteLine(LogUtils.MsgInsert(loja));
             return CreatedAtAction(nameof(LojaPorId), new { id = loja.Id }, loja);
@@ -37,7 +52,7 @@ namespace apiProdutos2.Controllers
             var lojas = _session.Query<Loja>();
             var total = lojas.Count();
             var lojasPaginadas = lojas.Skip((pagina - 1) * quantidade).Take(quantidade).ToList();
-            
+
             var lojasDto = _mapper.Map<List<LojaDto>>(lojasPaginadas);
 
             Console.WriteLine(LogUtils.MsgGet(lojas));
@@ -51,7 +66,10 @@ namespace apiProdutos2.Controllers
         [HttpGet("{id}")]
         public IActionResult LojaPorId(int id)
         {
-            var loja = _session.Get<Loja>(id);
+            var loja = _session.Query<Loja>()
+            .Fetch(x => x.Usuarios)
+            .FirstOrDefault(x => x.Id == id);
+
             if (loja == null) return NotFound(LogUtils.MsgErro(id));
 
             var lojaDto = _mapper.Map<LojaDto>(loja);
