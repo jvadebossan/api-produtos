@@ -28,7 +28,8 @@ namespace apiProdutos2.Dtos
         [StringLength(250, ErrorMessage = "A URL da imagem deve ter no máximo 250 caracteres")]
         public string ImagemUrl { get; set; }
 
-        [Required(ErrorMessage = "Pelo menos um usuário dono deve ser informado")]
+        [Required(ErrorMessage = "O Id do dono da loja deve ser informado")]
+        [UmItemNaLista(ErrorMessage = "Pelo menos um usuário dono deve ser informado")]
         public List<int> UsuariosIds { get; set; } = [];
 
         [Phone(ErrorMessage = "O telefone informado é inválido")]
@@ -53,6 +54,7 @@ namespace apiProdutos2.Dtos
         [StringLength(250, ErrorMessage = "A URL da imagem deve ter no máximo 250 caracteres")]
         public string? ImagemUrl { get; set; }
 
+        [UmItemNaLista(ErrorMessage = "Pelo menos um usuário dono deve ser informado")]
         public List<int>? UsuariosIds { get; set; } = [];
 
         [StringLength(20, ErrorMessage = "O telefone deve ter no máximo 20 caracteres")]

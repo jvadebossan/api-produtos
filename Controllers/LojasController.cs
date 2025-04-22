@@ -1,3 +1,4 @@
+using System.Text.Json;
 using apiProdutos2.Dtos;
 using apiProdutos2.Infra;
 using apiProdutos2.Models;
@@ -23,10 +24,19 @@ namespace apiProdutos2.Controllers
         [HttpPost]
         public IActionResult CriaLoja([FromBody] LojaInserir lojaDto)
         {
+
+            Console.WriteLine("\ndto");
+            Console.WriteLine(JsonSerializer.Serialize(lojaDto));
             var loja = _mapper.Map<Loja>(lojaDto);
+            Console.WriteLine("\nloja mapeada");
+            Console.WriteLine(JsonSerializer.Serialize(loja));
+            Console.WriteLine("usuarios");
+            Console.WriteLine(JsonSerializer.Serialize(_session.Query<Usuario>()));
             loja.Usuarios = _session.Query<Usuario>()
                 .Where(u => lojaDto.UsuariosIds.Contains(u.Id))
                 .ToList();
+            Console.WriteLine("\nloja mapeada.usuarios");
+            Console.WriteLine(JsonSerializer.Serialize(loja.Usuarios));
 
             using var transaction = _session.BeginTransaction();
 
@@ -37,6 +47,8 @@ namespace apiProdutos2.Controllers
                 _session.SaveOrUpdate(usuario);
             }
 
+            Console.WriteLine("\nloja mapeada.usuarios");
+            Console.WriteLine(JsonSerializer.Serialize(loja.Usuarios));
             _session.SaveOrUpdate(loja);
             transaction.Commit();
 
