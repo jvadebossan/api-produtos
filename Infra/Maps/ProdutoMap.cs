@@ -9,12 +9,12 @@ namespace apiProdutos2.Infra.Maps
         {
             Schema("MENU_ON");
             Table("PRODUTO");
-            Id(p => p.Id).Column("Id");
-            Map(p => p.Nome).Column("Nome");
-            Map(p => p.Descricao).Column("Descricao");
-            Map(p => p.ImagemUrl).Column("Imagem_url");
-            Map(p => p.Preco).Column("Preco");
+            Id(p => p.Id).Column("Id").Not.Nullable();
+            Map(p => p.Nome).Column("Nome").Not.Nullable();
+            Map(p => p.Descricao).Column("Descricao").Not.Nullable();
+            Map(p => p.Preco).Column("Preco").Not.Nullable();
             Map(p => p.Disponivel).Column("Disponivel");
+            Map(p => p.ImagemUrl).Column("Imagem_url");
             References(p => p.Categoria).Column("Id_categoria").Not.Nullable();
         }
     }

@@ -23,14 +23,15 @@ namespace apiProdutos2.Controllers
         [HttpPost]
         public IActionResult InserirProduto(ProdutoInserir produtoDto)
         {
-            var produto = _mapper.Map<Produto>(produtoDto);
-
             var categoria = _session.Get<Categoria>(produtoDto.CategoriaId);
             if (categoria == null) return NotFound(LogUtils.MsgErro(produtoDto.CategoriaId, "Categoria"));
 
+            var produto = _mapper.Map<Produto>(produtoDto);
             produto.Categoria = categoria;
 
+            using var transaction = _session.BeginTransaction();
             _session.Save(produto);
+            transaction.Commit();
 
             Console.WriteLine(LogUtils.MsgInsert(produto));
             return CreatedAtAction(nameof(ProdutoPorId), new { id = produto.Id }, produto);
