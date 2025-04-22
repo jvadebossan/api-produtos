@@ -23,7 +23,7 @@ namespace apiProdutos2.Controllers
             _mapper = mapper;
         }
 
-        private string GerarToken(string usuario)
+        private static string GerarToken(string usuario)
         {
             var claims = new[]
             {
@@ -49,7 +49,10 @@ namespace apiProdutos2.Controllers
             var usuario = _mapper.Map<Usuario>(usuarioDto);
 
             usuario.DataCadastro = DateTime.Now;
+
+            using var transaction = _session.BeginTransaction();
             _session.Save(usuario);
+            transaction.Commit();
 
             Console.WriteLine(LogUtils.MsgInsert(usuario));
             return Ok();
@@ -60,10 +63,10 @@ namespace apiProdutos2.Controllers
         {
             var usuario = _session.Query<Usuario>()
             .Where(u => u.Email == usuarioDto.Email)
-            .ToList();
-            if (usuario.Count == 0) return Unauthorized();
+            .ToList().First();
+            if (usuario == null) return Unauthorized();
 
-            if (usuario.First().Email == usuarioDto.Email && usuario.First().Senha == usuarioDto.Senha)
+            if (usuario.Email == usuarioDto.Email && usuario.Senha == usuarioDto.Senha)
             {
                 var token = GerarToken(usuarioDto.Email);
                 Console.WriteLine(LogUtils.MsgGet(usuario));
