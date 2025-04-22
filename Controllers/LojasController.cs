@@ -23,7 +23,6 @@ namespace apiProdutos2.Controllers
         [HttpPost]
         public IActionResult CriaLoja([FromBody] LojaInserir lojaDto)
         {
-
             var loja = _mapper.Map<Loja>(lojaDto);
             loja.Usuarios = _session.Query<Usuario>()
                 .Where(u => lojaDto.UsuariosIds.Contains(u.Id))
