@@ -20,7 +20,7 @@ namespace apiProdutos2.Dtos
         public string Email { get; set; }
 
         [Required(ErrorMessage = "A senha deve ser informada")]
-        [StringLength(100, MinimumLength = 6, ErrorMessage = "A senha deve ter no mínimo 6 caracteres")]
+        [StringLength(100, MinimumLength = 6, ErrorMessage = "A senha deve ter entre 6 e 100 caracteres")]
         public string Senha { get; set; }
     }
 
@@ -36,7 +36,7 @@ namespace apiProdutos2.Dtos
         public string Email { get; set; }
 
         [Required(ErrorMessage = "A senha deve ser informada")]
-        [StringLength(100, MinimumLength = 6, ErrorMessage = "A senha deve ter no mínimo 6 caracteres")]
+        [StringLength(100, MinimumLength = 6, ErrorMessage = "A senha deve ter entre 6 e 100 caracteres")]
         public string Senha { get; set; }
 
         [Required(ErrorMessage = "O cargo deve ser informado")]
@@ -46,9 +46,17 @@ namespace apiProdutos2.Dtos
 
     public class UsuarioAtualizar
     {
+        [StringLength(100, MinimumLength = 2, ErrorMessage = "O nome deve ter entre 2 e 100 caracteres")]
         public string? Nome { get; set; }
+
+        [EmailAddress(ErrorMessage = "O e-mail informado é inválido")]
+        [StringLength(100, ErrorMessage = "O e-mail deve ter no máximo 100 caracteres")]
         public string? Email { get; set; }
+
+        [StringLength(100, MinimumLength = 6, ErrorMessage = "A senha deve ter entre 6 e 100 caracteres")]
         public string? Senha { get; set; }
+
+        [StringLength(50, ErrorMessage = "O cargo deve ter no máximo 50 caracteres")]
         public string? Cargo { get; set; }
     }
 }
