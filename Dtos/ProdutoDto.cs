@@ -1,6 +1,6 @@
 using System.ComponentModel.DataAnnotations;
 
-namespace apiProdutos2.Dtos
+namespace MenuOn.Dtos
 {
     public class ProdutoInserir
     {

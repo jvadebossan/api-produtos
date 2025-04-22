@@ -1,5 +1,5 @@
-using apiProdutos2.Infra;
-using apiProdutos2.Profiles;
+using MenuOn.Infra;
+using MenuOn.Profiles;
 using Microsoft.AspNetCore.Authentication.JwtBearer;
 using Microsoft.IdentityModel.Tokens;
 using System.Text;
@@ -31,8 +31,8 @@ builder.Services.AddAuthentication(options =>
         ValidateAudience = true,
         ValidateLifetime = true,
         ValidateIssuerSigningKey = true,
-        ValidIssuer = "ApiProdutos",
-        ValidAudience = "ApiProdutos",
+        ValidIssuer = "MenuOn",
+        ValidAudience = "MenuOn",
         IssuerSigningKey = new SymmetricSecurityKey(Encoding.UTF8.GetBytes(jwtSecret))
     };
 });

@@ -1,7 +1,7 @@
 using System.Diagnostics;
 using System.Text.Json;
 
-namespace apiProdutos2.Infra
+namespace MenuOn.Infra
 {
     public class LogUtils
     {

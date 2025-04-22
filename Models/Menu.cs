@@ -1,7 +1,7 @@
 
 using System.Text.Json.Serialization;
 
-namespace apiProdutos2.Models
+namespace MenuOn.Models
 {
     public class Menu
     {

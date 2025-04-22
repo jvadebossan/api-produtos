@@ -1,10 +1,10 @@
-using apiProdutos2.Infra.Maps;
+using MenuOn.Infra.Maps;
 using FluentNHibernate.Cfg;
 using FluentNHibernate.Cfg.Db;
 using NHibernate;
 using DotNetEnv;
 
-namespace apiProdutos2.Infra
+namespace MenuOn.Infra
 {
     public static class NhUtils
     {

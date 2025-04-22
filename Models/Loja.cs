@@ -1,5 +1,5 @@
 
-namespace apiProdutos2.Models
+namespace MenuOn.Models
 {
     public class Loja
     {

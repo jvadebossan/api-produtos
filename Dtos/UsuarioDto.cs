@@ -1,7 +1,7 @@
 using System.ComponentModel.DataAnnotations;
-using apiProdutos2.Models;
+using MenuOn.Models;
 
-namespace apiProdutos2.Dtos
+namespace MenuOn.Dtos
 {
     public class UsuarioDto
     {

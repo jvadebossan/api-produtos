@@ -2,11 +2,11 @@ using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
-using apiProdutos2.Dtos;
-using apiProdutos2.Models;
+using MenuOn.Dtos;
+using MenuOn.Models;
 using AutoMapper;
 
-namespace apiProdutos2.Profiles
+namespace MenuOn.Profiles
 {
     public class Profiles : Profile
     {

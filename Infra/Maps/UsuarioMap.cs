@@ -1,7 +1,7 @@
-using apiProdutos2.Models;
+using MenuOn.Models;
 using FluentNHibernate.Mapping;
 
-namespace apiProdutos2.Infra.Maps
+namespace MenuOn.Infra.Maps
 {
     public class UsuarioMap : ClassMap<Usuario>
     {

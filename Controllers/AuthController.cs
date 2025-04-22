@@ -1,14 +1,14 @@
 using System.IdentityModel.Tokens.Jwt;
 using System.Security.Claims;
 using System.Text;
-using apiProdutos2.Dtos;
-using apiProdutos2.Infra;
-using apiProdutos2.Models;
+using MenuOn.Dtos;
+using MenuOn.Infra;
+using MenuOn.Models;
 using AutoMapper;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.IdentityModel.Tokens;
 
-namespace apiProdutos2.Controllers
+namespace MenuOn.Controllers
 {
     [ApiController]
     [Route("/api/[controller]")]
@@ -34,8 +34,8 @@ namespace apiProdutos2.Controllers
             var credenciais = new SigningCredentials(chave, SecurityAlgorithms.HmacSha256);
 
             var token = new JwtSecurityToken(
-                issuer: "ApiProdutos",
-                audience: "ApiProdutos",
+                issuer: "MenuOn",
+                audience: "MenuOn",
                 claims: claims,
                 expires: DateTime.Now.AddHours(24),
                 signingCredentials: credenciais);

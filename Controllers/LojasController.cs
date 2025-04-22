@@ -1,12 +1,12 @@
 using System.Text.Json;
-using apiProdutos2.Dtos;
-using apiProdutos2.Infra;
-using apiProdutos2.Models;
+using MenuOn.Dtos;
+using MenuOn.Infra;
+using MenuOn.Models;
 using AutoMapper;
 using Microsoft.AspNetCore.Mvc;
 using NHibernate.Linq;
 
-namespace apiProdutos2.Controllers
+namespace MenuOn.Controllers
 {
     [ApiController]
     [Route("/api/[controller]")]
