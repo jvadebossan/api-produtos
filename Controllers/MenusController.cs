@@ -22,14 +22,15 @@ namespace apiProdutos2.Controllers
         [HttpPost]
         public IActionResult CriarMenu([FromBody] MenuInserir menuDto)
         {
-            var menu = _mapper.Map<Menu>(menuDto);
-
             var loja = _session.Get<Loja>(menuDto.LojaId);
             if (loja == null) return NotFound(LogUtils.MsgErro(menuDto.LojaId, "Loja"));
 
+            var menu = _mapper.Map<Menu>(menuDto);
             menu.Loja = loja;
 
+            using var transaction = _session.BeginTransaction();
             _session.Save(menu);
+            transaction.Commit();
 
             Console.WriteLine(LogUtils.MsgInsert(menu));
             return CreatedAtAction(nameof(MenuPorId), new { id = menu.Id }, menu);
