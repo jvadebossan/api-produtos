@@ -9,10 +9,10 @@ namespace apiProdutos2.Infra.Maps
         {
             Schema("MENU_ON");
             Table("CATEGORIA");
-            Id(p => p.Id).Column("Id");
-            Map(p => p.Nome).Column("Nome");
-            Map(p => p.Descricao).Column("Descricao");
-            Map(p => p.OrdemExibicao).Column("Ordem_exibicao");
+            Id(p => p.Id).Column("Id").Not.Nullable();
+            Map(p => p.Nome).Column("Nome").Not.Nullable();
+            Map(p => p.Descricao).Column("Descricao").Not.Nullable();
+            Map(p => p.OrdemExibicao).Column("Ordem_exibicao").Not.Nullable();
             Map(p => p.ImagemUrl).Column("Imagem_url");
             Map(p => p.Ativo).Column("Ativo");
             HasMany(p => p.Produtos).KeyColumn("Id_categoria").Inverse().Cascade.All();

@@ -30,7 +30,9 @@ namespace apiProdutos2.Controllers
             var categoria = _mapper.Map<Categoria>(categoriaDto);
             categoria.Menu = menu;
 
+            using var transaction = _session.BeginTransaction();
             _session.Save(categoria);
+            transaction.Commit();
 
             Console.WriteLine(LogUtils.MsgInsert(categoria));
             return CreatedAtAction(nameof(CategoriaPorId), new { categoria.Id }, categoria);
