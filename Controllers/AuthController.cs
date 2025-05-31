@@ -7,6 +7,7 @@ using MenuOn.Models;
 using AutoMapper;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.IdentityModel.Tokens;
+using Microsoft.AspNetCore.Authorization;
 
 namespace MenuOn.Controllers
 {
@@ -23,11 +24,12 @@ namespace MenuOn.Controllers
             _mapper = mapper;
         }
 
-        private static string GerarToken(string usuario)
+        private static string GerarToken(string usuario, string cargo = "user")
         {
             var claims = new[]
             {
-            new Claim(ClaimTypes.Name, usuario)
+            new Claim(ClaimTypes.Name, usuario),
+            new Claim(ClaimTypes.Role, cargo.ToLower()) // [user, shop-admin, admin]
         };
 
             var chave = new SymmetricSecurityKey(Encoding.UTF8.GetBytes(Environment.GetEnvironmentVariable("JWT_SECRET")));
@@ -43,6 +45,7 @@ namespace MenuOn.Controllers
             return new JwtSecurityTokenHandler().WriteToken(token);
         }
 
+        [Authorize(Roles = "admin")]
         [HttpPost("criar-conta")]
         public IActionResult CriarUsuario(UsuarioInserir usuarioDto)
         {
@@ -58,6 +61,7 @@ namespace MenuOn.Controllers
             return Ok();
         }
 
+
         [HttpGet("entrar")]
         public IActionResult Entrar(UsuarioEntrar usuarioDto)
         {
@@ -68,7 +72,7 @@ namespace MenuOn.Controllers
 
             if (usuario.Email == usuarioDto.Email && usuario.Senha == usuarioDto.Senha)
             {
-                var token = GerarToken(usuarioDto.Email);
+                var token = GerarToken(usuarioDto.Email, usuario.Cargo);
                 Console.WriteLine(LogUtils.MsgGet(usuario));
                 return Ok(new { token });
             }

@@ -3,6 +3,7 @@ using MenuOn.Infra;
 using MenuOn.Models;
 using AutoMapper;
 using Microsoft.AspNetCore.Mvc;
+using Microsoft.AspNetCore.Authorization;
 
 namespace MenuOn.Controllers
 {
@@ -21,6 +22,7 @@ namespace MenuOn.Controllers
             _mapper = mapper;
         }
 
+        [Authorize(Roles = "shop-admin, admin")]
         [HttpPost]
         public IActionResult CriarCategoria([FromBody] CategoriaInserir categoriaDto)
         {
@@ -37,7 +39,7 @@ namespace MenuOn.Controllers
             Console.WriteLine(LogUtils.MsgInsert(categoria));
             return CreatedAtAction(nameof(CategoriaPorId), new { categoria.Id }, categoria);
         }
-
+        
         [HttpGet("{id}")]
         public IActionResult CategoriaPorId(int id)
         {
@@ -49,6 +51,7 @@ namespace MenuOn.Controllers
             return Ok(categoria);
         }
 
+        [Authorize(Roles = "shop-admin, admin")]
         [HttpPut("{id}")]
         public IActionResult AtualizarCategoria(int id, CategoriaAtualizar categoriaDto)
         {
@@ -65,6 +68,7 @@ namespace MenuOn.Controllers
             return NoContent();
         }
 
+        [Authorize(Roles = "shop-admin, admin")]
         [HttpDelete("{id}")]
         public IActionResult DeletarCategoria(int id)
         {

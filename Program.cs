@@ -4,6 +4,7 @@ using Microsoft.AspNetCore.Authentication.JwtBearer;
 using Microsoft.IdentityModel.Tokens;
 using System.Text;
 using DotNetEnv;
+using System.Security.Claims;
 
 Env.Load();
 var jwtSecret = Environment.GetEnvironmentVariable("JWT_SECRET");
@@ -33,7 +34,17 @@ builder.Services.AddAuthentication(options =>
         ValidateIssuerSigningKey = true,
         ValidIssuer = "MenuOn",
         ValidAudience = "MenuOn",
-        IssuerSigningKey = new SymmetricSecurityKey(Encoding.UTF8.GetBytes(jwtSecret))
+        IssuerSigningKey = new SymmetricSecurityKey(Encoding.UTF8.GetBytes(jwtSecret)),
+        RoleClaimType = ClaimTypes.Role
+    };
+    options.Events = new JwtBearerEvents
+    {
+        OnForbidden = context =>
+        {
+            context.Response.StatusCode = 403;
+            context.Response.ContentType = "application/json";
+            return context.Response.WriteAsync("{\"erro\": \"Acesso negado: você não tem permissão para acessar este recurso.\"}");
+        }
     };
 });
 

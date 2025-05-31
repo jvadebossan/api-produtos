@@ -3,6 +3,7 @@ using MenuOn.Infra;
 using MenuOn.Models;
 using AutoMapper;
 using Microsoft.AspNetCore.Mvc;
+using Microsoft.AspNetCore.Authorization;
 
 namespace MenuOn.Controllers
 {
@@ -19,6 +20,7 @@ namespace MenuOn.Controllers
             _mapper = mapper;
         }
 
+        [Authorize(Roles = "shop-admin, admin")]
         [HttpPost]
         public IActionResult CriarMenu([FromBody] MenuInserir menuDto)
         {
@@ -46,6 +48,7 @@ namespace MenuOn.Controllers
             return Ok(menu);
         }
 
+        [Authorize(Roles = "shop-admin, admin")]
         [HttpPut("{id}")]
         public IActionResult AtualizarMenu(int id, [FromBody] MenuAtualizar menuDto)
         {
@@ -62,6 +65,7 @@ namespace MenuOn.Controllers
             return Ok(menu);
         }
 
+        [Authorize(Roles = "shop-admin, admin")]
         [HttpDelete("{id}")]
         public IActionResult DeletarMenu(int id)
         {

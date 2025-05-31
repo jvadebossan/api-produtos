@@ -5,6 +5,7 @@ using MenuOn.Models;
 using AutoMapper;
 using Microsoft.AspNetCore.Mvc;
 using NHibernate.Linq;
+using Microsoft.AspNetCore.Authorization;
 
 namespace MenuOn.Controllers
 {
@@ -21,6 +22,7 @@ namespace MenuOn.Controllers
             _mapper = mapper;
         }
 
+        [Authorize(Roles = "shop-admin, admin")]
         [HttpPost]
         public IActionResult CriaLoja([FromBody] LojaInserir lojaDto)
         {
@@ -89,6 +91,7 @@ namespace MenuOn.Controllers
             return Ok(loja);
         }
 
+        [Authorize(Roles = "shop-admin, admin")]
         [HttpPut("{id}")]
         public IActionResult AtualizarLoja(int id, [FromBody] LojaAtualizar lojaDto)
         {
@@ -107,6 +110,7 @@ namespace MenuOn.Controllers
             return NoContent();
         }
 
+        [Authorize(Roles = "shop-admin, admin")]
         [HttpDelete("{id}")]
         public IActionResult DeletarLoja(int id)
         {
