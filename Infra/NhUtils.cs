@@ -6,10 +6,11 @@ using DotNetEnv;
 
 namespace MenuOn.Infra
 {
+
     public static class NhUtils
     {
         private static readonly ISessionFactory sessionFactory = Fluently.Configure()
-            .Database(MySQLConfiguration.Standard.ConnectionString(Environment.GetEnvironmentVariable("DATABASE_URL"))
+            .Database(PostgreSQLConfiguration.Standard.ConnectionString(Environment.GetEnvironmentVariable("DATABASE_URL"))
             .FormatSql())
             .Mappings(m => m.FluentMappings.AddFromAssemblyOf<ProdutoMap>())
             .BuildSessionFactory();

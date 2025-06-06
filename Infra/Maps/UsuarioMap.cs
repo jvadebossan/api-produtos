@@ -7,7 +7,7 @@ namespace MenuOn.Infra.Maps
     {
         public UsuarioMap()
         {
-            Schema("MENU_ON");
+            Schema("MENUON");
             Table("USUARIO");
             Id(x => x.Id).Column("Id");
             Map(x => x.Nome).Column("Nome");

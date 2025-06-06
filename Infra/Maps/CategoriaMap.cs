@@ -7,7 +7,7 @@ namespace MenuOn.Infra.Maps
     {
         public CategoriaMap()
         {
-            Schema("MENU_ON");
+            Schema("MENUON");
             Table("CATEGORIA");
             Id(p => p.Id).Column("Id").Not.Nullable();
             Map(p => p.Nome).Column("Nome").Not.Nullable();
