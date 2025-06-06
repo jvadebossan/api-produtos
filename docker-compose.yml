@@ -6,6 +6,7 @@ services:
     ports:
       - "5000:5000"
     environment:
+      - ASPNETCORE_ENVIRONMENT=Development
       - ASPNETCORE_URLS=http://+:5000
       - DATABASE_URL=Host=postgres;Port=5432;Database=menuon;Username=postgres;Password=${POSTGRES_PASSWORD}
       - JWT_SECRET=${JWT_SECRET}
