@@ -7,7 +7,7 @@ namespace MenuOn.Infra.Maps
     {
         public CategoriaMap()
         {
-            Schema("MENUON");
+            Schema("menuon");
             Table("CATEGORIA");
             Id(p => p.Id).Column("Id").Not.Nullable();
             Map(p => p.Nome).Column("Nome").Not.Nullable();
@@ -15,7 +15,7 @@ namespace MenuOn.Infra.Maps
             Map(p => p.OrdemExibicao).Column("Ordem_exibicao").Not.Nullable();
             Map(p => p.ImagemUrl).Column("Imagem_url");
             Map(p => p.Ativo).Column("Ativo");
-            HasMany(p => p.Produtos).KeyColumn("Id_categoria").Inverse().Cascade.All();
+            HasMany(p => p.Produtos).KeyColumn("ID_CATEGORIA").Inverse().Cascade.All();
             References(p => p.Menu).Column("Id_menu").Not.Nullable();
         }
     }

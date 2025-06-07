@@ -11,7 +11,8 @@ namespace MenuOn.Models
         public virtual int OrdemExibicao { get; set; }
         public virtual string ImagemUrl { get; set; }
         public virtual bool Ativo { get; set; }
-        public virtual IList<Produto> Produtos { get; set; }
+        public virtual IList<Produto> Produtos { get; set; } = new List<Produto>();
+
         [JsonIgnore]
         public virtual Menu Menu { get; set; }
 

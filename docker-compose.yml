@@ -8,22 +8,21 @@ services:
     environment:
       - ASPNETCORE_ENVIRONMENT=Development
       - ASPNETCORE_URLS=http://+:5000
-      - DATABASE_URL=Host=postgres;Port=5432;Database=menuon;Username=postgres;Password=${POSTGRES_PASSWORD}
+      - DATABASE_URL=Server=mysql;Port=3306;Database=menuon;Uid=root;Pwd=${MYSQL_ROOT_PASSWORD};
       - JWT_SECRET=${JWT_SECRET}
     depends_on:
-      - postgres
+      - mysql
 
-  postgres:
-    image: postgres:15
+  mysql:
+    image: mysql:8
     restart: always
     environment:
-      POSTGRES_DB: menuon
-      POSTGRES_USER: postgres
-      POSTGRES_PASSWORD: ${POSTGRES_PASSWORD}
+      MYSQL_DATABASE: menuon
+      MYSQL_ROOT_PASSWORD: ${MYSQL_ROOT_PASSWORD}
     ports:
-      - "5432:5432"
+      - "3306:3306"
     volumes:
-      - pgdata:/var/lib/postgresql/data
+      - mysqldata:/var/lib/mysql
 
 volumes:
-  pgdata:
+  mysqldata:
