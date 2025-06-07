@@ -21,7 +21,10 @@ builder.Services.AddCors(options =>
         policy =>
         {
             policy.WithOrigins(
-                "https://menu-on.netlify.app"
+                "http://localhost:5173",
+                "https://menu-on.netlify.app",
+                "https://menunow.com.br",
+                "https://dev.menunow.com.br"
             )
             .AllowAnyHeader()
             .AllowAnyMethod();
