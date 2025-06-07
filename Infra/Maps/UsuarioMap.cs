@@ -16,6 +16,7 @@ namespace MenuOn.Infra.Maps
             Map(x => x.Cargo).Column("Cargo");
             Map(x => x.DataCadastro).Column("Data_cadastro");
             HasManyToMany(x => x.Lojas)
+                .Schema("MENUON")
                 .Table("USUARIO_LOJA")
                 .ParentKeyColumn("ID_USUARIO")
                 .ChildKeyColumn("ID_LOJA")
